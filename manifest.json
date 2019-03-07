@@ -1,0 +1,28 @@
+{
+    "background": {
+        "persistent": false,
+        "scripts": ["background_script.js"]
+    },
+    "content_scripts": [{
+        "all_frames": true,
+        "exclude_globs": [],
+        "js": ["content_script.js"],
+        "matches": ["<all_urls>"],
+        "run_at": "document_start"
+    }],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "description": "DevTools Example",
+    "devtools_page": "devtools_page.html",
+    "homepage_url": "https://github.com/cartant/devtools-example",
+    "icons": {
+        "128": "nerd.png"
+    },
+    "manifest_version": 2,
+    "name": "DevTools Example",
+    "permissions": [
+        "tabs",
+        "<all_urls>"
+    ],
+    "short_name": "DevTools Example",
+    "version": "0.0.0"
+}
