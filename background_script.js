@@ -4,12 +4,12 @@ const pairs = {};
 
 chrome.runtime.onConnect.addListener(port => {
 
-    const { inspectedIabId, name, otherName } = parse(port);
+    const { inspectedTabId, name, otherName } = parse(port);
     console.log(`connected the ${name} port`);
 
-    let pair = pairs[inspectedIabId];
+    let pair = pairs[inspectedTabId];
     if (!pair) {
-        pairs[inspectedIabId] = pair = {
+        pairs[inspectedTabId] = pair = {
             content: undefined,
             panel: undefined
         };
@@ -37,13 +37,13 @@ function parse(port) {
     const match = port.name.match(/panel@(\d+)/);
     if (match) {
         return {
-            inspectedIabId: match[1],
+            inspectedTabId: match[1],
             name: "panel",
             otherName: "content"
         };
     }
     return {
-        inspectedIabId: port.sender.tab.id.toString(),
+        inspectedTabId: port.sender.tab.id.toString(),
         name: port.name,
         otherName: "panel"
     };
