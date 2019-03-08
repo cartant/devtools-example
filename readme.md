@@ -4,7 +4,7 @@ This repo contains a simple DevTool that injects an `Extension` object into the 
 
 The example's code contains comments that should explain how everything works and there is some official Chrome documentation here: [Extending DevTools](https://developer.chrome.com/extensions/devtools)
 
-## Installation
+## Installing it
 
 1. Browse to `chrome://extensions`.
 2. Enable 'Developer Mode' - via the toggle in the page's top-right.
@@ -20,7 +20,7 @@ The example's code contains comments that should explain how everything works an
 
 A tip: if you need to inspect the DevTools panel - either the DOM or the console output - you can do so by opening the DevTools for the DevTools. To do that, detach the DevTools containing the DevTools Example, so that they are not docked and then use the DevTools hot key to open the DevTools for the DevTools. Weird, isn't it? 
 
-## Installation with Firefox
+## Installing it for Firefox
 
 The DevTool in this example can also be loaded into Firefox.
 
