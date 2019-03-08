@@ -15,7 +15,7 @@
     "devtools_page": "devtools_page.html",
     "homepage_url": "https://github.com/cartant/devtools-example",
     "icons": {
-        "128": "nerd.png"
+        "480": "nerd.png"
     },
     "manifest_version": 2,
     "name": "DevTools Example",

@@ -11,12 +11,26 @@
     <button id="post">Post</button>
     <p><code id="received"></code></p>
     <script>
+
+        // Obtain the extension class that will have been injected by the
+        // content script if the extension is installed.
+        //
+        // Unlike the HTML pages used for the DevTools pages, this is a
+        // 'normal' HTML page and inline `script` elements are okay. 
+
         const extension = window.__DEVTOOLS_EXAMPLE_EXTENSION__;
         if (extension) {
+
+            // Listen for messages from the DevTools panel.
+
             extension.listen(message => {
                 console.log("received", message)
                 document.querySelector("#received").innerHTML = JSON.stringify(message);
             });
+
+            // Whenever the 'Post' button is pressed, post a message to the
+            // DevTools panel.
+
             document.querySelector("#post").addEventListener("click", () => {
                 const message = {
                     data: "from content",
