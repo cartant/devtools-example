@@ -20,9 +20,9 @@ The example's code contains comments that should explain how everything works an
 
 A tip: if you need to inspect the DevTools panel - either the DOM or the console output - you can do so by opening the DevTools for the DevTools. To do that, detach the DevTools containing the DevTools Example, so that they are not docked and then use the DevTools hot key to open the DevTools for the DevTools. Weird, isn't it? 
 
-## Installing it for Firefox
+## Installing it in Firefox
 
-The DevTool in this example can also be loaded into Firefox.
+The DevTool in this example can also be installed in Firefox.
 
 1. Click 'Add-ons' in the menu.
 2. Click 'Extensions' in the sidebar.
