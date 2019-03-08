@@ -19,7 +19,6 @@ backgroundConnection.onMessage.addListener(message => {
     }
 });
 
-
 function installExtension(window) {
     class Extension {
         listen(listener) {

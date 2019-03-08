@@ -2,49 +2,49 @@
 
 const pairs = {};
 
-chrome.runtime.onConnect.addListener(port => {
+chrome.runtime.onConnect.addListener(connectedPort => {
 
-    const { inspectedTabId, name, otherName } = parse(port);
-    console.log(`connected the ${name} port`);
+    const { tabId, source, destination } = info(connectedPort);
+    console.log(`connected the ${source} port on tab ${tabId}`);
 
-    let pair = pairs[inspectedTabId];
+    let pair = pairs[tabId];
     if (!pair) {
-        pairs[inspectedTabId] = pair = {
+        pairs[tabId] = pair = {
             content: undefined,
             panel: undefined
         };
     }
-    pair[name] = port;
+    pair[source] = connectedPort;
 
     const listener = message => {
-        const otherPort = pair[otherName];
-        if (otherPort) {
-            console.log(`relaying a message from the ${name} port to the ${otherName} port`, message);
-            otherPort.postMessage({ ...message, source: name });
+        const destinationPort = pair[destination];
+        if (destinationPort) {
+            console.log(`relaying a message from the ${source} port to the ${destination} port on tab ${tabId}`, message);
+            destinationPort.postMessage({ ...message, source });
         } else {
-            console.log(`cannot relay; the ${otherName} port is not connected`, message);
+            console.log(`cannot relay; the ${destination} port is not connected on tab ${tabId}`, message);
         }
     };
 
-    port.onDisconnect.addListener(() => {
-        console.log(`disconnected the ${name} port`);
-        pair[name] = undefined;
+    connectedPort.onDisconnect.addListener(() => {
+        console.log(`disconnected the ${source} port on tab ${tabId}`);
+        pair[source] = undefined;
     });
-    port.onMessage.addListener(listener);    
+    connectedPort.onMessage.addListener(listener);
 });
 
-function parse(port) {
+function info(port) {
     const match = port.name.match(/panel@(\d+)/);
     if (match) {
         return {
-            inspectedTabId: match[1],
-            name: "panel",
-            otherName: "content"
+            tabId: match[1],
+            source: "panel",
+            destination: "content"
         };
     }
     return {
-        inspectedTabId: port.sender.tab.id.toString(),
-        name: port.name,
-        otherName: "panel"
+        tabId: port.sender.tab.id.toString(),
+        source: "content",
+        destination: "panel"
     };
 }
