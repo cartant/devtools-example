@@ -2,16 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <style>
+        body { font-family: Sans-Serif; }
+    </style>
 </head>
 <body>
     <p>This is the example page.</p>
     <button id="post">Post</button>
+    <p><code id="received"></code></p>
     <script>
         const extension = window.__DEVTOOLS_EXAMPLE_EXTENSION__;
         if (extension) {
-            extension.listen(message => console.log("received", message));
+            extension.listen(message => {
+                console.log("received", message)
+                document.querySelector("#received").innerHTML = JSON.stringify(message);
+            });
             document.querySelector("#post").addEventListener("click", () => {
-                const message = { data: "from content" };
+                const message = {
+                    data: "from content",
+                    timestamp: Date.now()
+                };
                 console.log("posting", message);
                 extension.post(message);
             });
