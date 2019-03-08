@@ -23,3 +23,8 @@ A tip: if you need to inspect the DevTools panel - either the DOM or the console
 ## Installation with Firefox
 
 The DevTool in this example can also be loaded into Firefox.
+
+1. Click 'Add-ons' in the menu.
+2. Click 'Extensions' in the sidebar.
+3. Click 'Debug Add-ons' in the menu that drops down from the button with the cog icon.
+4. Click 'Load Temporary Add-on...' and open the `manifest.json` file.
