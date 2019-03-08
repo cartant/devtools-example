@@ -3,19 +3,21 @@
 const pairs = {};
 
 chrome.runtime.onConnect.addListener(port => {
+
     const { inspectedIabId, name, otherName } = parse(port);
     console.log(`connected the ${name} port`);
+
     let pair = pairs[inspectedIabId];
     if (!pair) {
         pairs[inspectedIabId] = pair = {
-            contentPort: undefined,
-            contentTeardown: undefined,
-            panelPort: undefined,
-            panelTeardown: undefined
+            content: undefined,
+            panel: undefined
         };
     }
+    pair[name] = port;
+
     const listener = message => {
-        const otherPort = pair[`${otherName}Port`];
+        const otherPort = pair[otherName];
         if (otherPort) {
             console.log(`relaying a message from the ${name} port to the ${otherName} port`, message);
             otherPort.postMessage({ ...message, source: name });
@@ -23,20 +25,12 @@ chrome.runtime.onConnect.addListener(port => {
             console.log(`cannot relay; the ${otherName} port is not connected`, message);
         }
     };
-    port.onMessage.addListener(listener);
-    pair[`${name}Port`] = port;
-    pair[`${name}Teardown`] = () => port.onMessage.addListener(listener);
-});
 
-chrome.runtime.onConnect.removeListener(port => {
-    const { inspectedIabId, name } = parse(port);
-    console.log(`disconnected the ${name} port`);
-    const pair = pairs[inspectedIabId];
-    if (pair) {
-        pair[`${name}Teardown`]();
-        pair[`${name}Teardown`] = undefined;
-        pair[`${name}Port`] = undefined;
-    }
+    port.onDisconnect.addListener(() => {
+        console.log(`disconnected the ${name} port`);
+        pair[name] = undefined;
+    });
+    port.onMessage.addListener(listener);    
 });
 
 function parse(port) {
