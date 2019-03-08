@@ -6,10 +6,7 @@ const backgroundConnection = chrome.runtime.connect({
 
 window.addEventListener("message", event => {
     if ((event.source === window) && event.data && (event.data.source === "devtools-example-content")) {
-        backgroundConnection.postMessage({
-            ...event.data.message,
-            source: "content"
-        });
+        backgroundConnection.postMessage(event.data.message);
     }
 });
 
@@ -24,10 +21,13 @@ backgroundConnection.onMessage.addListener(message => {
 
 
 function installExtension(window) {
-
     class Extension {
         listen(listener) {
-            const unwrapper = event => listener(event.data.message);
+            const unwrapper = event => {
+                if (event.data.source === "devtools-example-panel") {
+                    listener(event.data.message);
+                }
+            }
             window.addEventListener("message", unwrapper);
             return () => window.removeEventListener("message", unwrapper);
         }
@@ -38,7 +38,6 @@ function installExtension(window) {
             }, "*");
         }
     }
-
     Object.defineProperty(window, "__DEVTOOLS_EXAMPLE_EXTENSION__", {
         value: new Extension()
     });

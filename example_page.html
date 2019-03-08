@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <script></script>
+    <p>This is the example page.</p>
+    <button id="post">Post</button>
+    <script>
+        const extension = window.__DEVTOOLS_EXAMPLE_EXTENSION__;
+        if (extension) {
+            extension.listen(message => console.log("received", message));
+            document.querySelector("#post").addEventListener("click", () => {
+                const message = { data: "from content" };
+                console.log("posting", message);
+                extension.post(message);
+            });
+        }
+    </script>
 </body>
 </html>

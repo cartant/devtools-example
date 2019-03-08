@@ -1,3 +1,5 @@
+"use strict";
+
 chrome.devtools.panels.create(
     "Example",
     "nerd.png",
