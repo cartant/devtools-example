@@ -1,6 +1,6 @@
 "use strict";
 
-// Store a map of content and panel ports keyed by tab ID.
+// Store a map of content and panel ports, keyed by tab ID.
 
 const pairs = {};
 
@@ -34,7 +34,7 @@ chrome.runtime.onConnect.addListener(connectedPort => {
         }
     };
 
-    // Clean up when the connected port disconnects - i.e. with either the tab
+    // Clean up when the connected port disconnects - i.e. when either the tab
     // or the DevTools are closed.
 
     connectedPort.onDisconnect.addListener(() => {
@@ -45,10 +45,10 @@ chrome.runtime.onConnect.addListener(connectedPort => {
 });
 
 // When the content script connects to the background script, it will have been
-// called within the inspected page. That means the tab ID will be specifed in
+// called within the inspected page. That means the tab ID will be specified in
 // the port's sender.
 //
-// When the panel connects, its port's sender will not have a tab ID. However,
+// When the panel connects, the port's sender will not have a tab ID. However,
 // within the panel, the ID can be obtained from `chrome.devtools`, so the ID
 // is encoded in the port name.
 

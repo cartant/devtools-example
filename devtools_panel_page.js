@@ -7,7 +7,7 @@ const backgroundConnection = chrome.runtime.connect({
     name: `panel@${chrome.devtools.inspectedWindow.tabId}`
 });
 
-// Listen from message from the content script.
+// Listen for messages from the content script.
 
 backgroundConnection.onMessage.addListener(message => {
     console.log("received", message);

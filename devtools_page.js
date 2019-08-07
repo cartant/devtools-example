@@ -1,6 +1,6 @@
 "use strict";
 
-// The 'outer' DevTools page contains no DOM elements. It just make the
+// The 'outer' DevTools page contains no DOM elements. It just makes the
 // following API call.
 
 chrome.devtools.panels.create(

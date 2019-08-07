@@ -40,7 +40,7 @@ backgroundConnection.onMessage.addListener(message => {
 // inspected page and content script have separate `window` objects.
 //
 // `toString` will be called on the function - to obtain the content for the
-// `script` element - and that means to code within it cannot reference
+// `script` element - and that means the code within it cannot reference
 // anything outside of it.
 
 function installExtension(window) {
@@ -70,7 +70,7 @@ function installExtension(window) {
         }
     }
 
-    // Make the extension instance available via adding an extention-specific
+    // Make the extension instance available by adding an extention-specific
     // property to `window`.
 
     Object.defineProperty(window, "__DEVTOOLS_EXAMPLE_EXTENSION__", {
