@@ -18,14 +18,12 @@ The example's code contains comments that should explain how everything works an
 4. The DevTools console output for the background script should now show that the panel port has connected.
 5. You should now be able to click the 'Post' buttons to send messages between the injected extension and the DevTools panel.
 
-A tip: if you need to inspect the DevTools panel - either the DOM or the console output - you can do so by opening the DevTools for the DevTools. To do that, detach the DevTools containing the DevTools Example, so that they are not docked and then use the DevTools hot key to open the DevTools for the DevTools. Weird, isn't it? 
-
 ## Debugging it
 
 Debugging the DevTool usually involves logging messages to the console. Which can be confusing, as there is more than one console:
 
 * Logging performed within the content script is written to the application's console.
-* Logging performed within the background script is written to the background page's console - which can be access by clicking the extension's 'background page' link on the `chrome://extensions` page. Clicking that link will open a DevTools window for the background page.
+* Logging performed within the background script is written to the background page's console - which can be accessed by clicking the extension's 'background page' link on the `chrome://extensions` page. Clicking that link will open a DevTools window for the background page.
 * Logging performed in the DevTools panel is written to the DevTools page's console. The DevTools for the DevTools page - yeah, it's like Russion dolls - can be opened via a link on the `chrome://extensions` page. It can also be opened by undocking the application's DevTools and pressing the DevTools hotkey whilst the DevTools window is focused: <kbd>Cmd</kbd> + <kbd>Opt</kbd> + <kbd>I</kbd> on Mac and <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> on Windows.
 
 The extension's card on the `chrome://extensions` page will also show any errors that have been thrown within the background script.
