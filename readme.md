@@ -14,7 +14,7 @@ The example's code contains comments that should explain how everything works an
 
 1. Open `example_page.html` in a tab.
 2. In another tab, open `chrome://extensions`. The extension's card will have a link named 'background page'. Clicking that will bring up the DevTools for the background script and the console on those DevTools will show what's logged within the background script. You should see that the content port has connected.
-3. If you go back to the tab containing `example_page.html` and open the DeTools, you should see a panel named 'Example'. (You will likely have to click the drop-down menu on the right of the panel.)
+3. If you go back to the tab containing `example_page.html` and open the DevTools, you should see a panel named 'Example'. (You will likely have to click the drop-down menu on the right of the panel.)
 4. The DevTools console output for the background script should now show that the panel port has connected.
 5. You should now be able to click the 'Post' buttons to send messages between the injected extension and the DevTools panel.
 
