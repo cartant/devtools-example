@@ -1,6 +1,6 @@
 # devtools-example
 
-This repo contains a simple DevTool that injects an `Extension` object into the inspected tab and implements bi-directional communication between said object and the DevTools panel.
+This repo contains a simple DevTools extension that injects an `Extension` object into the inspected tab and implements bi-directional communication between said object and the DevTools panel.
 
 The example's code contains comments that should explain how everything works and there is some official Chrome documentation here: [Extending DevTools](https://developer.chrome.com/extensions/devtools)
 
@@ -20,7 +20,7 @@ The example's code contains comments that should explain how everything works an
 
 ## Debugging it
 
-Debugging the DevTool usually involves logging messages to the console. Which can be confusing, as there is more than one console:
+Debugging a DevTools extension usually involves logging messages to the console. Which can be confusing, as there are multiple consoles:
 
 * Logging performed within the content script is written to the application's console.
 * Logging performed within the background script is written to the background page's console - which can be accessed by clicking the extension's 'background page' link on the `chrome://extensions` page. Clicking that link will open a DevTools window for the background page.
@@ -30,7 +30,7 @@ The extension's card on the `chrome://extensions` page will also show any errors
 
 ## Installing it in Firefox
 
-The DevTool in this example can also be installed in Firefox.
+The DevTools extension in this example can also be installed in Firefox.
 
 1. Click 'Add-ons' in the menu.
 2. Click 'Extensions' in the sidebar.
