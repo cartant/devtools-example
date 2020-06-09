@@ -1,7 +1,7 @@
 "use strict";
 
 const backgroundConnection = chrome.runtime.connect({
-    name: "content"
+  name: "content",
 });
 
 // Listen for messages posted from the extension class that will be injected
@@ -14,10 +14,14 @@ const backgroundConnection = chrome.runtime.connect({
 // the message is not wrapped in an `Event` - the message body is posted and
 // received directly.
 
-window.addEventListener("message", event => {
-    if ((event.source === window) && event.data && (event.data.source === "devtools-example-content")) {
-        backgroundConnection.postMessage(event.data.message);
-    }
+window.addEventListener("message", (event) => {
+  if (
+    event.source === window &&
+    event.data &&
+    event.data.source === "devtools-example-content"
+  ) {
+    backgroundConnection.postMessage(event.data.message);
+  }
 });
 
 // Listen for messages posted by the background script and forward the messages
@@ -26,11 +30,14 @@ window.addEventListener("message", event => {
 // Note that a specific source is used to indicate the the message has been
 // relayed from the DevTools panel.
 
-backgroundConnection.onMessage.addListener(message => {
-    window.postMessage({
-        message,
-        source: "devtools-example-panel"
-    }, "*");
+backgroundConnection.onMessage.addListener((message) => {
+  window.postMessage(
+    {
+      message,
+      source: "devtools-example-panel",
+    },
+    "*"
+  );
 });
 
 // This function will be injected into the inspected page by inserting a
@@ -44,38 +51,40 @@ backgroundConnection.onMessage.addListener(message => {
 // anything outside of it.
 
 function installExtension(window) {
-    class Extension {
+  class Extension {
+    // The application in the inspected page can call `listen` to receive
+    // messages from the DevTools panel.
 
-        // The application in the inspected page can call `listen` to receive
-        // messages from the DevTools panel.
-
-        listen(listener) {
-            const unwrapper = event => {
-                if (event.data.source === "devtools-example-panel") {
-                    listener(event.data.message);
-                }
-            }
-            window.addEventListener("message", unwrapper);
-            return () => window.removeEventListener("message", unwrapper);
+    listen(listener) {
+      const unwrapper = (event) => {
+        if (event.data.source === "devtools-example-panel") {
+          listener(event.data.message);
         }
-
-        // The application can call `post` to send messages to the DevTools
-        // panel.
-
-        post(message) {
-            window.postMessage({
-                message,
-                source: "devtools-example-content"
-            }, "*");
-        }
+      };
+      window.addEventListener("message", unwrapper);
+      return () => window.removeEventListener("message", unwrapper);
     }
 
-    // Make the extension instance available by adding an extention-specific
-    // property to `window`.
+    // The application can call `post` to send messages to the DevTools
+    // panel.
 
-    Object.defineProperty(window, "__DEVTOOLS_EXAMPLE_EXTENSION__", {
-        value: new Extension()
-    });
+    post(message) {
+      window.postMessage(
+        {
+          message,
+          source: "devtools-example-content",
+        },
+        "*"
+      );
+    }
+  }
+
+  // Make the extension instance available by adding an extention-specific
+  // property to `window`.
+
+  Object.defineProperty(window, "__DEVTOOLS_EXAMPLE_EXTENSION__", {
+    value: new Extension(),
+  });
 }
 
 // Inject the extension into the inspected page's DOM.

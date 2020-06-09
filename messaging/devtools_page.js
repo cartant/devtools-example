@@ -4,8 +4,8 @@
 // following API call.
 
 chrome.devtools.panels.create(
-    "Example",
-    "nerd.png",
-    "devtools_panel_page.html",
-    () => {}
+  "Example",
+  "nerd.png",
+  "devtools_panel_page.html",
+  () => {}
 );

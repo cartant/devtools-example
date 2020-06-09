@@ -7,41 +7,46 @@ const pairs = {};
 // When a content script or panel connects, make sure a pair exists and that
 // the connected port is assigned to the appropriate property.
 
-chrome.runtime.onConnect.addListener(connectedPort => {
+chrome.runtime.onConnect.addListener((connectedPort) => {
+  const { tabId, source, destination } = info(connectedPort);
+  console.log(`connected the ${source} port on tab ${tabId}`);
 
-    const { tabId, source, destination } = info(connectedPort);
-    console.log(`connected the ${source} port on tab ${tabId}`);
-
-    let pair = pairs[tabId];
-    if (!pair) {
-        pairs[tabId] = pair = {
-            content: undefined,
-            panel: undefined
-        };
-    }
-    pair[source] = connectedPort;
-
-    // When a message is received from the connected port, forward the message
-    // to the destination port.
-
-    const listener = message => {
-        const destinationPort = pair[destination];
-        if (destinationPort) {
-            console.log(`relaying a message from the ${source} port to the ${destination} port on tab ${tabId}`, message);
-            destinationPort.postMessage(message);
-        } else {
-            console.log(`cannot relay; the ${destination} port is not connected on tab ${tabId}`, message);
-        }
+  let pair = pairs[tabId];
+  if (!pair) {
+    pairs[tabId] = pair = {
+      content: undefined,
+      panel: undefined,
     };
+  }
+  pair[source] = connectedPort;
 
-    // Clean up when the connected port disconnects - i.e. when either the tab
-    // or the DevTools are closed.
+  // When a message is received from the connected port, forward the message
+  // to the destination port.
 
-    connectedPort.onDisconnect.addListener(() => {
-        console.log(`disconnected the ${source} port on tab ${tabId}`);
-        pair[source] = undefined;
-    });
-    connectedPort.onMessage.addListener(listener);
+  const listener = (message) => {
+    const destinationPort = pair[destination];
+    if (destinationPort) {
+      console.log(
+        `relaying a message from the ${source} port to the ${destination} port on tab ${tabId}`,
+        message
+      );
+      destinationPort.postMessage(message);
+    } else {
+      console.log(
+        `cannot relay; the ${destination} port is not connected on tab ${tabId}`,
+        message
+      );
+    }
+  };
+
+  // Clean up when the connected port disconnects - i.e. when either the tab
+  // or the DevTools are closed.
+
+  connectedPort.onDisconnect.addListener(() => {
+    console.log(`disconnected the ${source} port on tab ${tabId}`);
+    pair[source] = undefined;
+  });
+  connectedPort.onMessage.addListener(listener);
 });
 
 // When the content script connects to the background script, it will have been
@@ -53,17 +58,17 @@ chrome.runtime.onConnect.addListener(connectedPort => {
 // is encoded in the port name.
 
 function info(port) {
-    const match = port.name.match(/panel@(\d+)/);
-    if (match) {
-        return {
-            tabId: match[1],
-            source: "panel",
-            destination: "content"
-        };
-    }
+  const match = port.name.match(/panel@(\d+)/);
+  if (match) {
     return {
-        tabId: port.sender.tab.id.toString(),
-        source: "content",
-        destination: "panel"
+      tabId: match[1],
+      source: "panel",
+      destination: "content",
     };
+  }
+  return {
+    tabId: port.sender.tab.id.toString(),
+    source: "content",
+    destination: "panel",
+  };
 }

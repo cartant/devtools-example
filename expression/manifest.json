@@ -1,12 +1,12 @@
 {
-    "description": "Expression Example",
-    "devtools_page": "devtools_page.html",
-    "homepage_url": "https://github.com/cartant/devtools-example",
-    "icons": {
-        "480": "nerd.png"
-    },
-    "manifest_version": 2,
-    "name": "Expression Example",
-    "short_name": "Expression Example",
-    "version": "0.0.0"
+  "description": "Expression Example",
+  "devtools_page": "devtools_page.html",
+  "homepage_url": "https://github.com/cartant/devtools-example",
+  "icons": {
+    "480": "nerd.png"
+  },
+  "manifest_version": 2,
+  "name": "Expression Example",
+  "short_name": "Expression Example",
+  "version": "0.0.0"
 }

@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.9",
+    "prettier": "^2.0.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{html,js,json}": "prettier --write"
+  },
+  "scripts": {
+    "format": "prettier --write \"./**/*.{html,js,json}\""
+  }
+}

@@ -1,45 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <style>
-        body { font-family: Sans-Serif; }
+      body {
+        font-family: Sans-Serif;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <p>This is the inspected page.</p>
     <button id="post">Post</button>
     <p><code id="received"></code></p>
     <script>
+      // Obtain the extension object that will have been injected by the
+      // content script, if the extension was installed.
+      //
+      // Unlike the HTML pages used for the DevTools pages, this is a
+      // 'normal' HTML page and inline `script` elements are okay.
 
-        // Obtain the extension object that will have been injected by the
-        // content script, if the extension was installed.
-        //
-        // Unlike the HTML pages used for the DevTools pages, this is a
-        // 'normal' HTML page and inline `script` elements are okay. 
+      const extension = window.__DEVTOOLS_EXAMPLE_EXTENSION__;
+      if (extension) {
+        // Listen for messages from the DevTools panel.
 
-        const extension = window.__DEVTOOLS_EXAMPLE_EXTENSION__;
-        if (extension) {
+        extension.listen((message) => {
+          console.log("received", message);
+          document.querySelector("#received").innerHTML = JSON.stringify(
+            message
+          );
+        });
 
-            // Listen for messages from the DevTools panel.
+        // Whenever the 'Post' button is pressed, post a message to the
+        // DevTools panel.
 
-            extension.listen(message => {
-                console.log("received", message)
-                document.querySelector("#received").innerHTML = JSON.stringify(message);
-            });
-
-            // Whenever the 'Post' button is pressed, post a message to the
-            // DevTools panel.
-
-            document.querySelector("#post").addEventListener("click", () => {
-                const message = {
-                    data: "from content",
-                    timestamp: Date.now()
-                };
-                console.log("posting", message);
-                extension.post(message);
-            });
-        }
+        document.querySelector("#post").addEventListener("click", () => {
+          const message = {
+            data: "from content",
+            timestamp: Date.now(),
+          };
+          console.log("posting", message);
+          extension.post(message);
+        });
+      }
     </script>
-</body>
+  </body>
 </html>
