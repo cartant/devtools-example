@@ -12,7 +12,7 @@ The example's code contains comments that should explain how everything works an
 
 ## Trying it out
 
-1. Open `example_page.html` in a tab.
+1. Open `example_page.html` - or any other page - in a tab.
 2. Open the DevTools and select the 'Elements' tab.
 3. In the tab's sidebar - that hosts the 'Styles' pane - there should be an 'Example' pane.
 4. The content of the 'Example' pane shows the client position of the selected element in the elements tree. The content will update as the selection is changed.
