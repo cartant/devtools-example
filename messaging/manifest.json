@@ -11,18 +11,18 @@
         "run_at": "document_start"
     }],
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-    "description": "DevTools Example",
+    "description": "Messaging Example",
     "devtools_page": "devtools_page.html",
     "homepage_url": "https://github.com/cartant/devtools-example",
     "icons": {
         "480": "nerd.png"
     },
     "manifest_version": 2,
-    "name": "DevTools Example",
+    "name": "Messaging Example",
     "permissions": [
         "tabs",
         "<all_urls>"
     ],
-    "short_name": "DevTools Example",
+    "short_name": "Messaging Example",
     "version": "0.0.0"
 }

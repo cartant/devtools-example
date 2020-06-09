@@ -1,6 +1,6 @@
-# devtools-example
+# Messaging example
 
-This repo contains a simple DevTools extension that injects an `Extension` object into the inspected tab and implements bi-directional communication between said object and the DevTools panel.
+This directory contains a DevTools extension that injects an `Extension` object into the inspected tab and implements bi-directional communication between said object and a DevTools panel.
 
 The example's code contains comments that should explain how everything works and there is some official Chrome documentation here: [Extending DevTools](https://developer.chrome.com/extensions/devtools)
 
@@ -24,7 +24,7 @@ Debugging a DevTools extension usually involves logging messages to the console.
 
 * Logging performed within the content script is written to the application's console.
 * Logging performed within the background script is written to the background page's console - which can be accessed by clicking the extension's 'background page' link on the `chrome://extensions` page. Clicking that link will open a DevTools window for the background page.
-* Logging performed in the DevTools panel is written to the DevTools page's console. The DevTools for the DevTools page - yeah, it's like Russion dolls - can be opened via a link on the `chrome://extensions` page. It can also be opened by undocking the application's DevTools and pressing the DevTools hotkey whilst the DevTools window is focused: <kbd>Cmd</kbd> + <kbd>Opt</kbd> + <kbd>I</kbd> on Mac and <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> on Windows.
+* Logging performed in the DevTools panel is written to the DevTools page's console. The DevTools for the DevTools page - yeah, it's like Russian dolls - can be opened via a link on the `chrome://extensions` page. It can also be opened by undocking the application's DevTools and pressing the DevTools hotkey whilst the DevTools window is focused: <kbd>Cmd</kbd> + <kbd>Opt</kbd> + <kbd>I</kbd> on Mac and <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> on Windows.
 
 The extension's card on the `chrome://extensions` page will also show any errors that have been thrown within the background script.
 
