@@ -3,9 +3,9 @@
 
 chrome.devtools.panels.elements.createSidebarPane("Example", (sidebar) => {
   // Call `eval` on the inspected window, but evaluate the expression within
-  // the context of the content script which was specified in the manifest.
-  // The advantage of this is that no code needs to be injected into the
-  // JavaScript context of the inspected page.
+  // the context of the content script that was specified in the manifest. The
+  // advantage of this is that no code needs to be injected into the JavaScript
+  // context of the inspected page.
 
   function update() {
     chrome.devtools.inspectedWindow.eval(
