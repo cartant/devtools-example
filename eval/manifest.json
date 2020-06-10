@@ -1,0 +1,21 @@
+{
+  "content_scripts": [
+    {
+      "all_frames": false,
+      "exclude_globs": [],
+      "js": ["content_script.js"],
+      "matches": ["<all_urls>"],
+      "run_at": "document_start"
+    }
+  ],
+  "description": "Eval Example",
+  "devtools_page": "devtools_page.html",
+  "homepage_url": "https://github.com/cartant/devtools-example",
+  "icons": {
+    "480": "nerd.png"
+  },
+  "manifest_version": 2,
+  "name": "Eval Example",
+  "short_name": "Eval Example",
+  "version": "0.0.0"
+}
