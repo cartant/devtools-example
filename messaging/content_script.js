@@ -4,6 +4,22 @@ const backgroundConnection = chrome.runtime.connect({
   name: "content",
 });
 
+// Listen for messages posted by the background script and forward the messages
+// to the injected extension class via `window.postMessage`.
+//
+// Note that a specific source is used to indicate the the message has been
+// relayed from the DevTools panel.
+
+backgroundConnection.onMessage.addListener((message) => {
+  window.postMessage(
+    {
+      message,
+      source: "devtools-example-panel",
+    },
+    "*"
+  );
+});
+
 // Listen for messages posted from the extension class that will be injected
 // into the inspected page. Filter messages using the source to ignore other
 // uses of `window.postMessage` within the inspected page.
@@ -22,22 +38,6 @@ window.addEventListener("message", (event) => {
   ) {
     backgroundConnection.postMessage(event.data.message);
   }
-});
-
-// Listen for messages posted by the background script and forward the messages
-// to the injected extension class via `window.postMessage`.
-//
-// Note that a specific source is used to indicate the the message has been
-// relayed from the DevTools panel.
-
-backgroundConnection.onMessage.addListener((message) => {
-  window.postMessage(
-    {
-      message,
-      source: "devtools-example-panel",
-    },
-    "*"
-  );
 });
 
 // This function will be injected into the inspected page by inserting a
