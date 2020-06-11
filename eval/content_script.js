@@ -5,7 +5,6 @@
 
 function suggestQuery(element) {
   return {
-    element,
     query: "suggestion goes here",
   };
 }
